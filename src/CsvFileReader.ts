@@ -2,12 +2,10 @@ import fs from 'fs'
 import { dateStringToDate } from './utils'
 import { MatchResult } from './MatchResult'
 
-export abstract class CsvFilereader<T> {
-  data: T[] = []
+export class CsvFilereader {
+  data: string[][] = []
 
   constructor(public fileName: string) {}
-
-  abstract mapRow(row: string[]): T
 
   read(): void {
     this.data = fs
@@ -18,6 +16,5 @@ export abstract class CsvFilereader<T> {
       .map((row: string): string[] => {
         return row.split(',')
       })
-      .map(this.mapRow)
   }
 }
